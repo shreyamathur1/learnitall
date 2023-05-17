@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Learn Page</title>
+    <link rel="stylesheet" href="learn.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: azure;
+        margin: 0;
+        padding: 0;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Learn It All, <%= name %>!</h1>
+    <div id="learn">
+      <p id="word">Your word is: <span id="wordValue"><%-word-%></span></p>
+      <button id="learnBtn" onclick="learnWord()">LEARN A NEW WORD</button>
+    </div>
+    <script>
+      function learnWord() {
+        fetch("https://api.api-ninjas.com/v1/randomword")
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("wordValue").textContent = data.word;
+            console.log("In learn page, the word is " + data.word);
+            window.location.reload(); // Reload the page to get a new word
+          })
+          .catch((error) => {
+            document.getElementById("wordValue").textContent = "Error occurred";
+          });
+      }
+    </script>
+  </body>
+</html>
